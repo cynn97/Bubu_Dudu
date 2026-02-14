@@ -1,0 +1,451 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(#ffd6e8, #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Comic Sans MS', cursive;
+    overflow: hidden;
+}
+
+/* Escenario */
+#game {
+    width: 600px;
+    height: 550px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    background-image: url("contenedor.png");
+    background-size: cover;      /* que cubra todo */
+    background-position: center; /* centrado */
+    background-repeat: no-repeat;
+}
+
+/* Textos */
+
+#hint {
+    color: #ff1493;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 24px 0 0;
+    text-shadow: 0 2px 6px rgb(255, 255, 255);
+    text-align: center;
+    animation: hintBounce 1s ease-in-out infinite;
+}
+
+#status {
+    margin: 0;
+    font-size: 14px;
+    color: #ff7aa2;
+    padding: 10px 16px;
+    text-align: center;
+    animation: hintBounce 1s ease-in-out infinite;
+}
+
+/* Personajes */
+.character {
+    position: absolute;
+    width: 90px;
+    transition: transform 0.1s;
+}
+
+.character {
+    z-index: 30;
+    
+}
+
+#bubu {
+    left: 30px;
+    bottom: 80px;
+}
+
+#dudu {
+    right: 30px;
+    bottom: 80px;
+}
+
+/* Animaciones */
+.walk {
+    animation: walk 0.3s infinite alternate;
+}
+
+@keyframes walk {
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
+}
+
+.happy {
+    animation: jump 0.5s infinite alternate;
+}
+
+@keyframes jump {
+    from { transform: translateY(0); }
+    to { transform: translateY(-8px); }
+}
+
+/* Piso */
+/*#floor {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(#ffb6c1, #ff8fab);
+}
+
+/* Carta (ventana estilo píxel) */
+#letter {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(0);
+    width: 76%;
+    max-width: 460px;
+    height: auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 36px 28px 60px;
+    box-sizing: border-box;
+    z-index: 20;
+    overflow-y: auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* Clase que dispara la animación "píxel" al mostrarse */
+.pixel-open {
+    animation: openPixel 450ms steps(8) forwards;
+    transform-origin: bottom center;
+    image-rendering: pixelated;
+}
+
+#letter h2 {
+    color: #ff1493;
+    text-shadow: 0 2px 6px rgb(255, 255, 255);
+}
+
+#letter p {
+    text-shadow: 0 2px 6px rgb(255, 255, 255);
+}
+
+#letter strong {
+    color: #ff1493;
+}
+
+
+
+@keyframes cartaEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes openPixel {
+    from { transform: translate(-50%, -50%) scaleY(0); }
+    to   { transform: translate(-50%, -50%) scaleY(1); }
+}
+
+.big-heart {
+    font-size: 0;
+    width: 100px;
+    height: 100px;
+    margin: 15px auto 25px;
+    animation: beat 1s infinite;
+    z-index: 5;
+    position: relative;
+    filter: drop-shadow(0 6px 12px rgba(255, 20, 147, 0.3));
+}
+
+.big-heart::before {
+    content: '♥ ♥ ♥';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    color: #ff8eb3;
+    opacity: 0;
+    animation: heartBurst 1s ease-out infinite;
+    pointer-events: none;
+}
+
+.big-heart::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    transform: translateX(-50%);
+    border: 2px solid rgba(255, 107, 166, 0.4);
+    border-radius: 50%;
+    animation: pulseRing 1s ease-out infinite;
+    pointer-events: none;
+}
+
+.big-heart svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    animation: glowHeart 1s ease-in-out infinite;
+}
+
+@keyframes glowHeart {
+    0%, 100% {
+        filter: drop-shadow(0 6px 12px rgba(255, 20, 147, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 2px 20px rgba(255, 20, 147, 0.6)) drop-shadow(0 0 15px rgba(255, 105, 180, 0.4));
+    }
+}
+
+@keyframes heartBurst {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-40px) scale(0.5);
+    }
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: translateX(-50%) scale(0.8);
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateX(-50%) scale(1.3);
+        opacity: 0;
+    }
+}
+
+
+@keyframes beat {
+    0%, 100% { 
+        transform: scale(1); 
+    }
+    10% { 
+        transform: scale(1.2); 
+    }
+    20% { 
+        transform: scale(1.1); 
+    }
+    30% { 
+        transform: scale(1.15); 
+    }
+    45% { 
+        transform: scale(1.08); 
+    }
+}
+
+/* Botón volver */
+#backBtn {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: #ff6f91;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 22px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+    z-index: 30;
+}
+
+
+#backBtn:hover {
+    background: #ff4d6d;
+}
+
+/* Diálogos */
+.dialog {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 2px solid #ff1493;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: 13px;
+    color: #333;
+    font-weight: 600;
+    z-index: 40;
+    animation: dialogFadeIn 0.4s ease;
+    max-width: 150px;
+    text-align: center;
+}
+
+.dialog p {
+    margin: 0;
+    text-shadow: none;
+}
+
+.dialog-bubu {
+    left: 20px;
+    top: 20px;
+}
+
+.dialog-bubu::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 0 solid transparent;
+    border-top: 8px solid #ff1493;
+}
+
+@keyframes dialogFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.dialog-dudu::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 30px;
+    width: 0;
+    height: 0;
+    border-left: 0 solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #ff1493;
+}
+
+
+/* Icono de Carta */
+.letter-icon {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 35;
+    animation: iconPulse 1.5s ease-in-out infinite;
+}
+
+.letter-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 4px 8px rgba(255, 20, 147, 0.4));
+    transition: filter 0.2s;
+}
+
+.letter-icon:hover svg {
+    filter: drop-shadow(0 6px 12px rgba(255, 20, 147, 0.8));
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+#status {
+    margin: 8px 0 0;
+    font-size: 16px;
+    color: #ff3b6b;
+    padding: 6px 16px;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* Clase para resaltar el status al ganar */
+.status-highlight {
+    font-size: 18px;
+    color: #e91e63;
+    font-weight: 800;
+    margin-top: 22px;
+}
+
+.hint-highlight {
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+/* Corazones flotando */
+.heart-float {
+    position: absolute;
+    color: #ff1493;
+    font-size: 24px;
+    font-weight: 300;
+    animation: floatUp linear forwards;
+    pointer-events: none;
+    z-index: 31;
+    opacity: 0.85;
+    text-shadow: 0 2px 4px rgba(255, 20, 147, 0.3);
+}
+
+@keyframes floatUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-120px);
+    }
+}
+
+.petal {
+    position: absolute;
+    top: -20px;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    border-radius: 50% 50% 50% 0;
+    opacity: 0.8;
+    transform: rotate(45deg);
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(420px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes hintBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
