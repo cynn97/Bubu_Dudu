@@ -239,3 +239,18 @@ function createPetal() {
 
 // Crear pétalos cada 300ms
 setInterval(createPetal, 300);
+
+document.getElementById("leftBtn").addEventListener("click", () => {
+    if (gameWon) return;
+    x -= 10;
+    if (x < 0) x = 0;
+    bubu.style.left = x + "px";
+});
+
+document.getElementById("rightBtn").addEventListener("click", () => {
+    if (gameWon) return;
+    x += 10;
+    const maxX = game.clientWidth - bubu.offsetWidth;
+    if (x > maxX) x = maxX;
+    bubu.style.left = x + "px";
+});
